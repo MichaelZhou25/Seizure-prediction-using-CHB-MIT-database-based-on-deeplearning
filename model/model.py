@@ -45,7 +45,7 @@ print(f"使用设备: {DEVICE}")
 # 滤波函数
 # -------------------------------
 def bandpass_filter(data, lowcut, highcut, fs, axis=-1, order=4):
-    """带通滤波器（可选）"""
+
     nyq = 0.5 * fs
     low = lowcut / nyq
     high = highcut / nyq
@@ -53,7 +53,7 @@ def bandpass_filter(data, lowcut, highcut, fs, axis=-1, order=4):
     return filtfilt(b, a, data, axis=axis)
 
 def notch_filter(data, freq, fs, Q=30, axis=-1):
-    """带陷滤波器"""
+
     b, a = iirnotch(freq, Q, fs)
     return filtfilt(b, a, data, axis=axis)
 
@@ -63,10 +63,7 @@ def remove_dc_component(data, axis=-1):
     return data - mean_val
 
 def apply_all_filters(data, fs=FS):
-    """
-    应用滤波链：工频陷波 + 二次谐波陷波 + 去除 DC
-    输入: (..., channels, timepoints)
-    """
+
     filtered = notch_filter(data, 60.0, fs=fs)
     filtered = notch_filter(filtered, 120.0, fs=fs)
     filtered = remove_dc_component(filtered)
@@ -88,11 +85,7 @@ def generating_raw_data_matching_stft(data_array, n_fft=N_FFT, hop_length=HOP_LE
 # -------------------------------
 def apply_stft_to_data(data_array, n_fft=N_FFT, hop_length=HOP_LENGTH,
                        win_length=WIN_LENGTH, fs=FS, device=DEVICE):
-    """
-    对三维数组应用 STFT，返回对数幅度谱
-    输入: (n_samples, n_channels, n_timepoints)
-    输出: (n_samples, n_channels, freq_bins, time_frames) 的 log-magnitude
-    """
+
     if data_array.size == 0:
         return np.array([])
 
@@ -114,8 +107,8 @@ def apply_stft_to_data(data_array, n_fft=N_FFT, hop_length=HOP_LENGTH,
         hop_length=hop_length,
         win_length=win_length,
         window=window,
-        center=True,           # ✅ 时间对齐
-        return_complex=True    # ✅ 复数输出
+        center=True,          
+        return_complex=True   
     )  # shape: (N*C, F, T_frames)
 
     # 恢复通道维度
@@ -124,10 +117,10 @@ def apply_stft_to_data(data_array, n_fft=N_FFT, hop_length=HOP_LENGTH,
     stft_complex = stft_complex.view(n_samples, n_channels, freq_bins, time_frames)
 
     # 删除 0Hz (DC 分量) —— 合理，尤其对 EEG
-    stft_complex = stft_complex[:, :, 1:, 1:-1]  # (N, C, F-1, T')
+    stft_complex = stft_complex[:, :, 1:, 1:-1]  # (N, C, F-1, T)
 
     # 转为对数幅度谱：20 * log10(|Z| + ε)
-    magnitude = stft_complex.abs()  # (N, C, F-1, T')
+    magnitude = stft_complex.abs()  # (N, C, F-1, T)
     log_magnitude_stft = 20 * torch.log10(magnitude + 1e-8)
 
     return log_magnitude_stft
@@ -140,13 +133,7 @@ import numpy as np
 from tqdm import tqdm
 
 def process_and_save_fragments(input_path, data_type):
-    """
-    逐个加载 HDF5 片段，滤波 → STFT → log-magnitude
-    并在 Batch 维度上拼接所有片段的结果
 
-    Returns:
-        concatenated_data: np.array, shape (Total_Samples, C, F, T)
-    """
     print(f"\n🚀 正在处理 {data_type} 数据...")
 
     input_list = []  # 用于收集所有模型输入
@@ -178,7 +165,7 @@ def process_and_save_fragments(input_path, data_type):
                 print(f"  ❌ 处理片段 {key} 时出错: {e}")
                 continue
 
-    # ✅ 在 Batch 维度 (axis=0) 上拼接所有片段
+    # 在 Batch 维度 (axis=0) 上拼接所有片段
     if len(input_list) == 0:
         print(f"⚠️  没有成功处理任何片段，返回空数组")
         return np.array([]), 0
@@ -211,21 +198,21 @@ class FrequencyBranch(nn.Module):
 
         # 重排：每个 (B, c, t) 独立处理
         x = x.permute(0, 1, 3, 2).reshape(B * C * T, Freq, 1)  # (B*C*T, 128, 1)
-        x = x.permute(0, 2, 1)  # → (B*C*T, 1, 128) ✅ Length=128
+        x = x.permute(0, 2, 1)  # (B*C*T, 1, 128) 
 
-        x = self.local_conv(x)  # (B*C*T, 1, 128) → 局部频率模式
+        x = self.local_conv(x)  # (B*C*T, 1, 128) 
 
-        # 1x1 卷积降维 F=128 → F_out=64
-        x = self.reduce(x.permute(0, 2, 1))  # → (B*C*T, 128, 1) → (B*C*T, 64, 1)
+        # 1x1 卷积降维 
+        x = self.reduce(x.permute(0, 2, 1))  # (B*C*T, 128, 1) → (B*C*T, 64, 1)
         x = x.permute(0, 2, 1)  # (B*C*T, 1, 64)
 
         # 恢复形状
         x = x.reshape(B, C, T, 64).permute(0, 1, 3, 2)  # (B, C, 64, T)
-        print('FrequencyBranch完成')
+        # print('FrequencyBranch完成')
         return x  # (B, C, 64, 9)
 
 class TCNBlock(nn.Module):
-    """单个 TCN 残差块（修正版：保持序列长度）"""
+    """单个 TCN 残差块"""
     def __init__(self, in_channels, out_channels, kernel_size=3, dilation=1, downsample=False):
         super().__init__()
         self.downsample = downsample
@@ -249,8 +236,10 @@ class TCNBlock(nn.Module):
 
         # 1x1 卷积调整残差维度
         if in_channels != out_channels or downsample:
+            print("需要调整残差维度")
             self.residual = nn.Conv1d(in_channels, out_channels, 1)
         else:
+            print("残差维度匹配")
             self.residual = nn.Identity()
 
         # 最大池化用于下采样（可选）
@@ -273,21 +262,17 @@ class TCNBlock(nn.Module):
         # ✅ 现在 out 和 residual 长度一致
         out += residual
         out = self.relu(out)
-        print("TCNBlock完成")
+        #print("TCNBlock完成")
         return out
 
 class TimeBranch(nn.Module):
-    def __init__(self, t_in=256, t_out=128):
+    def __init__(self, t_in=256, t_out=64):
         super().__init__()
-        # TCN 在 t=256 上建模局部时间动态
+        
         self.tcn = nn.Sequential(
             TCNBlock(in_channels=1, out_channels=32, kernel_size=3, dilation=1),
-            TCNBlock(in_channels=32, out_channels=64, kernel_size=3, dilation=2),
-            TCNBlock(in_channels=64, out_channels=128, kernel_size=3, dilation=4),  # 感受野很大
+            TCNBlock(in_channels=32, out_channels=t_out, kernel_size=3, dilation=2), # 感受野很大
         )
-        # TCNBlock(in_channels=128, out_channels=128, kernel_size=3, dilation=8),
-        # 最终 1x1 卷积降维（可选）
-        self.reduce = nn.Conv1d(128, t_out, kernel_size=1)
 
     def forward(self, x):
         # x: (B, C, 256, T=9)
@@ -295,24 +280,17 @@ class TimeBranch(nn.Module):
 
         # 重排：每个 (B, c, t) 独立处理
         x = x.permute(0, 1, 3, 2).reshape(B * C * T, t, 1)  # (B*C*T, 256, 1)
-        x = x.permute(0, 2, 1)  # → (B*C*T, 1, 256) ✅ in_channels=1, Length=256
+        x = x.permute(0, 2, 1)  # → (B*C*T, 1, 256) 
 
-        # TCN 建模：在 t=256 上提取深层时序特征
-        x = self.tcn(x)  # (B*C*T, 128, 256) → 注意：长度仍为 256（因果 padding）
-
-        # 1x1 卷积降维：128 → t_out=128（可保持）
-        x = self.reduce(x)  # (B*C*T, 128, 256) → (B*C*T, 128, 256)
+        x = self.tcn(x)  # (B*C*T, 64, 256) 
 
         # 全局平均池化压缩时间窗口（t=256 → 1）
-        x = x.mean(dim=-1, keepdim=True)  # (B*C*T, 128, 1)
-
-        # 或者使用 AdaptivePool:
-        # x = nn.AdaptiveAvgPool1d(1)(x)  # 同上
+        x = x.mean(dim=-1, keepdim=True)  # (B*C*T, 64, 1)
 
         # 恢复形状
-        x = x.reshape(B, C, T, 128).permute(0, 1, 3, 2)  # (B, C, 128, T)
-        print("TimeBranch完成")
-        return x  # (B, C, 128, 9)
+        x = x.reshape(B, C, T, 64).permute(0, 1, 3, 2)  # (B, C, 64, T)
+        # print("TimeBranch完成")
+        return x  # (B, C, 64, 9)
 
 class AdjacencyMatrixLearning(nn.Module):
     def __init__(self, C=22, T=9, hidden_dim=64):
@@ -322,29 +300,29 @@ class AdjacencyMatrixLearning(nn.Module):
         # 投影网络
         self.W1 = nn.Linear(64, hidden_dim)  # freq → hidden
         self.W2 = nn.Linear(64, hidden_dim)
-        self.W3 = nn.Linear(128, hidden_dim) # time → hidden
-        self.W4 = nn.Linear(128, hidden_dim)
+        self.W3 = nn.Linear(64, hidden_dim) # time → hidden
+        self.W4 = nn.Linear(64, hidden_dim)
 
-    def forward(self, freq_feat, time_out):
-        # freq_feat: (B, C, 64, T)
-        # time_out:  (B, C, 128, T)
-        B, C, _, T = freq_feat.shape
+    def forward(self, freq_feature, time_feature):
+        # freq_feature: (B, C, 64, T)
+        # time_feature:  (B, C, 128, T)
+        B, C, _, T = freq_feature.shape
 
         # 转置为 (B, T, C, F/t)
-        freq = freq_feat.permute(0, 3, 1, 2)  # (B, T, C, 64)
-        time = time_out.permute(0, 3, 1, 2)   # (B, T, C, 128)
+        freq = freq_feature.permute(0, 3, 1, 2)  # (B, T, C, 64)
+        time = time_feature.permute(0, 3, 1, 2)   # (B, T, C, 128)
 
         # 投影到低维空间
         freq_flat = freq.reshape(B * T, C, 64)
-        time_flat = time.reshape(B * T, C, 128)
+        time_flat = time.reshape(B * T, C, 64)
 
         # Frequency Path
-        f1 = torch.relu(self.W1(freq_flat))  # (BT, C, h)
+        f1 = torch.relu(self.W1(freq_flat))  # (BT, C, hidden_dim)
         f2 = torch.relu(self.W2(freq_flat))
         A_freq = torch.bmm(f1, f2.transpose(1, 2))  # (BT, C, C)
 
         # Time Path
-        t1 = torch.relu(self.W3(time_flat))  # (BT, C, h)
+        t1 = torch.relu(self.W3(time_flat))  # (BT, C, hidden_dim)
         t2 = torch.relu(self.W4(time_flat))
         A_time = torch.bmm(t1, t2.transpose(1, 2))  # (BT, C, C)
 
@@ -355,11 +333,11 @@ class AdjacencyMatrixLearning(nn.Module):
 
         # 恢复时间维度
         A = A.reshape(B, T, C, C)  # (B, T, C, C)
-        print("AdjacencyMatrixLearning完成")
+        # print("AdjacencyMatrixLearning完成")
         return A  # 动态邻接矩阵
     
 class TemporalGCN(nn.Module):
-    def __init__(self, in_channels=192, hidden_channels=128, num_layers=2, C=22):
+    def __init__(self, in_channels=128, hidden_channels=64, num_layers=2, C=22):
         super().__init__()
         self.C = C
         self.num_layers = num_layers
@@ -367,12 +345,7 @@ class TemporalGCN(nn.Module):
         # 图卷积层（1x1 Conv 实现 GCN）
         self.convs = nn.ModuleList()
         for _ in range(num_layers):
-            # 使用 1x1 Conv 模拟 GCN: (B, C, F) → (B, C, F')
-            '''
-            self.convs.append(
-                nn.Conv1d(C, C, kernel_size=1)  # 在节点维度上操作
-            )
-            '''
+
             self.convs.append(
                 nn.Linear(in_channels, hidden_channels)  # 特征变换
             )
@@ -381,7 +354,7 @@ class TemporalGCN(nn.Module):
         self.out_channels = hidden_channels
 
     def forward(self, x, A):
-        # x: (B, T, C, F) = (B, 9, C, 192)
+        # x: (B, T, C, F) = (B, 9, C, 128)
         # A: (B, T, C, C)
         B, T, C, Freq = x.shape
 
@@ -411,12 +384,12 @@ class TemporalGCN(nn.Module):
 
         # 拼接所有时间步: (B, T, C, H)
         x_gcn = torch.stack(outputs, dim=1)  # (B, T, C, H)
-        x_gcn = x_gcn.mean(dim = 2)               #(B, T, H)
-        print("Temporal GCN完成")
+        x_gcn = x_gcn.mean(dim = 2) # (B, T, H)
+
         return x_gcn  # (B, T, H)
 
 class TemporalModeler(nn.Module):
-    def __init__(self, input_dim, hidden_dim=128):
+    def __init__(self, input_dim, hidden_dim=64):
         super().__init__()
         self.gru = nn.GRU(
             input_size=input_dim,
@@ -434,7 +407,6 @@ class TemporalModeler(nn.Module):
         # Bi-GRU over time
         x, _ = self.gru(x)  # (B, T, 2*H)
 
-        print("TemporalModeler完成")
         return x  # (B, T, 2H)
     
 class TimeAttentionPooling(nn.Module):
@@ -456,7 +428,7 @@ class TimeAttentionPooling(nn.Module):
 
         # 加权求和
         x = (x * weights).sum(dim=1)  # (B, H)
-        print("TimeattentionPooling完成")
+ 
         return x  # (B, H)
     
 class DualPathModel(nn.Module):
@@ -466,13 +438,13 @@ class DualPathModel(nn.Module):
 
         # 特征提取
         self.freq_branch = FrequencyBranch(F_in=Freq, F_out=64)
-        self.time_branch = TimeBranch(t_in=t, t_out=128)
+        self.time_branch = TimeBranch(t_in=t, t_out=64)
 
         # 邻接矩阵学习
         self.adj_block = AdjacencyMatrixLearning(C=C, T=T)
 
         # 空间建模：GCN（每时间步独立）
-        self.spatial_gcn = TemporalGCN(in_channels=64+128, hidden_channels=128, C=C)
+        self.spatial_gcn = TemporalGCN(in_channels=64+64, hidden_channels=128, C=C)
 
         # 时间建模：Bi-GRU
         self.temporal_rnn = TemporalModeler(input_dim=128, hidden_dim=64)
@@ -524,9 +496,9 @@ from torch.utils.data import DataLoader, TensorDataset
 from sklearn.metrics import accuracy_score
 
 # 训练参数
-BATCH_SIZE = 32
+BATCH_SIZE = 64
 LEARNING_RATE = 0.001
-NUM_EPOCHS = 20
+NUM_EPOCHS = 10
 PATIENCE = 10
 
 # -------------------------------
@@ -543,21 +515,20 @@ def train_model(model, train_loader, val_loader, num_epochs=NUM_EPOCHS, patience
     
     for epoch in range(num_epochs):
         # 训练阶段
+        train_loss = 0
         model.train()
-        i = 0
-        for batch_x, batch_y in train_loader:
-            print(f"Epoch {epoch+1}, Batch {i+1}")
-            i += 1
+        for i, data in enumerate(train_loader):
+            batch_x, batch_y = data[0], data[1]
             batch_x, batch_y = batch_x.float().to(DEVICE), batch_y.long().to(DEVICE)
-            
             optimizer.zero_grad()
             logits, _ = model(batch_x)
             loss = criterion(logits, batch_y)
             loss.backward()
             optimizer.step()
-            if i == 3:
-                break
-        
+            train_loss += loss
+            if i > 0 and i % 20 == 0:
+                print("第{}轮，第{}个，训练Loss：{:.2f}".format(epoch, i, train_loss.data.cpu().numpy()/i))
+
         # 验证阶段
         model.eval()
         val_correct = 0
