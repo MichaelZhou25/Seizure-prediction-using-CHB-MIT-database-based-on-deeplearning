@@ -27,7 +27,7 @@ torch.manual_seed(42)
 # -------------------------------
 # 配置参数
 # -------------------------------
-PATIENT_ID = 23
+PATIENT_ID = 1
 DATA_DIR = Path("D:\\陈教授组\\mymodel\\data")
 PREICTAL_PATH = DATA_DIR / "preictal" / f"preictal_fragments{PATIENT_ID:02d}.h5"
 INTERICTAL_PATH = DATA_DIR / "interictal" / f"interictal_fragments{PATIENT_ID:02d}.h5"
@@ -145,9 +145,9 @@ def process_and_save_fragments(input_path, data_type):
             filtered_data = apply_all_filters(raw_data)
 
             stft_log_mag = apply_stft_to_data(filtered_data)  # (B, T, C, F)
-            print(f"STFT 对数幅度谱形状: {stft_log_mag.shape}")
+
             raw_data = generating_raw_data_matching_stft(filtered_data) # (B, T, C, t)
-            print(f"原始时域数据形状: {raw_data.shape}")
+
             model_input = torch.cat([stft_log_mag, raw_data], dim=-1)  # (B, T, C, F+t)
 
             model_input = model_input.cpu().numpy()  # 转回 CPU 和 NumPy
