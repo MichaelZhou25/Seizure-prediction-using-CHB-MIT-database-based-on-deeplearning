@@ -27,7 +27,7 @@ torch.manual_seed(42)
 # -------------------------------
 # 配置参数
 # -------------------------------
-PATIENT_ID = 1
+PATIENT_ID = 2
 DATA_DIR = Path("D:\\陈教授组\\mymodel\\data")
 PREICTAL_PATH = DATA_DIR / "preictal" / f"preictal_fragments{PATIENT_ID:02d}.h5"
 INTERICTAL_PATH = DATA_DIR / "interictal" / f"interictal_fragments{PATIENT_ID:02d}.h5"
@@ -463,7 +463,7 @@ def train_model(model, train_loader, val_loader, num_epochs=NUM_EPOCHS, patience
     # 初始化总耗时
     total_start_time = time.time()
 
-    for epoch in range(num_epochs):
+    for epoch in range(1, num_epochs + 1):
         # --- 开始计时 ---
         epoch_start_time = time.time()
 
@@ -473,7 +473,7 @@ def train_model(model, train_loader, val_loader, num_epochs=NUM_EPOCHS, patience
         train_total = 0
 
         model.train()
-        for i, data in enumerate(train_loader):
+        for i, data in enumerate(train_loader, 1):
             batch_x, batch_y = data[0], data[1]
             batch_x, batch_y = batch_x.float().to(DEVICE), batch_y.long().to(DEVICE)
             optimizer.zero_grad()
@@ -485,8 +485,8 @@ def train_model(model, train_loader, val_loader, num_epochs=NUM_EPOCHS, patience
             train_loss += loss.item()
             train_correct += (predicted == batch_y).sum().item()
             train_total += batch_y.size(0)
-            if (i > 0 and i % 19 == 0) or (i == len(train_loader) - 1):
-                print("第{}轮，第{}个batch，训练损失：{:.2f}，训练准确率：{:.2f}%".format(epoch+1, i+1, train_loss/(i+1), 100.0 * train_correct / train_total))
+            if (i > 0 and i % 20 == 0) or (i == len(train_loader) - 1):
+                print("第{}轮，第{}个batch，训练损失：{:.2f}，训练准确率：{:.2f}%".format(epoch, i, train_loss / i, 100.0 * train_correct / train_total))
 
         # 计算并记录训练指标
         avg_train_loss = train_loss / len(train_loader)
