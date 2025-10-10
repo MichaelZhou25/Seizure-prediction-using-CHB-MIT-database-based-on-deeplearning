@@ -13,7 +13,8 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 from torch.utils.data import DataLoader, TensorDataset
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import confusion_matrix, recall_score, accuracy_score
+import seaborn as sns
 import time  
 
 
@@ -265,7 +266,6 @@ class AdjacencyMatrixLearning(nn.Module):
 
         self.hidden_dim = hidden_dim
 
-        # 投影网络
         self.W1 = nn.Linear(64, hidden_dim)  
         self.W2 = nn.Linear(64, hidden_dim)
         self.W3 = nn.Linear(64, hidden_dim) 
@@ -275,7 +275,6 @@ class AdjacencyMatrixLearning(nn.Module):
 
         B, T, C, _ = freq_feature.shape
 
-        # 投影到低维空间
         freq_feature = freq_feature.reshape(B * T, C, 64)
         time_feature = time_feature.reshape(B * T, C, 64)
 
@@ -421,22 +420,31 @@ def plot_loss_and_accuracy(train_losses, val_losses, train_accuracies, val_accur
 
     # 损失曲线
     plt.subplot(1, 2, 1)
-    plt.plot(epochs, train_losses, 'b-', label='训练损失')
-    plt.plot(epochs, val_losses, 'r-', label='验证损失')
-    plt.title('训练和验证损失')
-    plt.xlabel('轮次')
-    plt.ylabel('损失')
+    plt.plot(epochs, train_losses, 'b-', label='Training Loss')
+    plt.plot(epochs, val_losses, 'r-', label='Validation Loss')
+    plt.title('Training and Validation Loss')
+    plt.xlabel('Epochs')
+    plt.ylabel('Loss')
     plt.legend()
 
     # 准确率曲线
     plt.subplot(1, 2, 2)
-    plt.plot(epochs, train_accuracies, 'b-', label='训练准确率')
-    plt.plot(epochs, val_accuracies, 'r-', label='验证准确率')
-    plt.title('训练和验证准确率')
-    plt.xlabel('轮次')
-    plt.ylabel('准确率 (%)')
+    plt.plot(epochs, train_accuracies, 'b-', label='Training Accuracy')
+    plt.plot(epochs, val_accuracies, 'r-', label='Validation Accuracy')
+    plt.title('Training and Validation Accuracy')
+    plt.xlabel('Epochs')
+    plt.ylabel('Accuracy (%)')
     plt.legend()
 
+    plt.tight_layout()
+    plt.show()
+
+def plot_confusion_matrix(cm, class_names, title='Confusion Matrix'):
+    plt.figure(figsize=(6, 5))
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=class_names, yticklabels=class_names)
+    plt.title(title)
+    plt.xlabel('Predicted')
+    plt.ylabel('True')
     plt.tight_layout()
     plt.show()
 
@@ -457,14 +465,10 @@ def train_model(model, train_loader, val_loader, num_epochs=NUM_EPOCHS, patience
     val_losses = []
     val_accuracies = []
 
-    # 从 sklearn 导入评估指标
-    from sklearn.metrics import confusion_matrix, recall_score, accuracy_score
-
-    # 初始化总耗时
     total_start_time = time.time()
 
     for epoch in range(1, num_epochs + 1):
-        # --- 开始计时 ---
+        
         epoch_start_time = time.time()
 
         # 训练阶段
@@ -488,18 +492,18 @@ def train_model(model, train_loader, val_loader, num_epochs=NUM_EPOCHS, patience
             if (i > 0 and i % 20 == 0) or (i == len(train_loader) - 1):
                 print("第{}轮，第{}个batch，训练损失：{:.2f}，训练准确率：{:.2f}%".format(epoch, i, train_loss / i, 100.0 * train_correct / train_total))
 
-        # 计算并记录训练指标
         avg_train_loss = train_loss / len(train_loader)
         train_acc = 100.0 * train_correct / train_total
+
         train_losses.append(avg_train_loss)
         train_accuracies.append(train_acc)
 
         # 验证阶段
         model.eval()
         val_loss = 0.0
-        # 收集所有真实标签和预测结果，用于 sklearn 计算
-        all_labels = []
-        all_preds = []
+
+        all_val_labels = []
+        all_val_preds = []
 
         with torch.no_grad():
             for batch_x, batch_y in val_loader:
@@ -510,20 +514,14 @@ def train_model(model, train_loader, val_loader, num_epochs=NUM_EPOCHS, patience
 
                 _, predicted = torch.max(logits, 1)
                 
-                # 收集到 CPU 列表中
-                all_labels.extend(batch_y.cpu().numpy())
-                all_preds.extend(predicted.cpu().numpy())
+                all_val_labels.extend(batch_y.cpu().numpy())
+                all_val_preds.extend(predicted.cpu().numpy())
 
-        # 计算平均验证损失
         avg_val_loss = val_loss / len(val_loader)
-        # 使用 sklearn 计算各项指标
-        val_acc = accuracy_score(all_labels, all_preds) * 100.0
-        # Sensitivity (Recall for the positive class, assuming 1 is positive)
-        sensitivity = recall_score(all_labels, all_preds, pos_label=1) * 100.0
-        # Specificity (Recall for the negative class)
-        specificity = recall_score(all_labels, all_preds, pos_label=0) * 100.0
+        val_acc = accuracy_score(all_val_labels, all_val_preds) * 100.0
+        sensitivity = recall_score(all_val_labels, all_val_preds, pos_label=1) * 100.0
+        specificity = recall_score(all_val_labels, all_val_preds, pos_label=0) * 100.0
 
-        # 记录验证指标 (✅ 关键修复)
         val_losses.append(avg_val_loss)
         val_accuracies.append(val_acc)
 
@@ -532,7 +530,6 @@ def train_model(model, train_loader, val_loader, num_epochs=NUM_EPOCHS, patience
         epoch_duration = epoch_end_time - epoch_start_time
         total_elapsed_time = epoch_end_time - total_start_time
 
-        # 打印结果（包含耗时信息）
         print(f"验证损失: {avg_val_loss:.2f}, "
               f"验证准确率: {val_acc:.2f}%, "
               f"验证Sensitivity: {sensitivity:.2f}%, "
@@ -549,7 +546,7 @@ def train_model(model, train_loader, val_loader, num_epochs=NUM_EPOCHS, patience
         else:
             early_stop_counter += 1
             if early_stop_counter >= patience:
-                print(f"⚠️ 早停触发，当前最佳验证准确率: {best_val_acc:.2f}% | 总训练耗时: {total_elapsed_time:.1f}s")
+                print(f"早停触发，当前最佳验证准确率: {best_val_acc:.2f}% | 总训练耗时: {total_elapsed_time:.1f}s")
                 break
     
     # 绘制损失和准确率曲线
@@ -560,10 +557,24 @@ def train_model(model, train_loader, val_loader, num_epochs=NUM_EPOCHS, patience
     if best_model_state is not None:
         model.load_state_dict(best_model_state)
 
-    # 清理 GPU 缓存 (✅ 增强内存管理)
-    torch.cuda.empty_cache()
-    # 删除不再需要的变量
-    del all_labels, all_preds, best_model_state
+    # 绘制最佳模型的混淆矩阵
+    model.eval()
+    all_val_labels = []
+    all_val_preds = []
+
+    with torch.no_grad():
+        for batch_x, batch_y in val_loader:
+            batch_x, batch_y = batch_x.float().to(DEVICE), batch_y.long().to(DEVICE)
+            logits, _ = model(batch_x)
+            _, predicted = torch.max(logits, 1)
+            all_val_labels.extend(batch_y.cpu().numpy())
+            all_val_preds.extend(predicted.cpu().numpy())
+
+    cm = confusion_matrix(all_val_labels, all_val_preds)
+    plot_confusion_matrix(cm, class_names=['Interictal (0)', 'Preictal (1)'],
+                          title=f'Confusion Matrix - Best Model\nVal Accuracy: {best_val_acc:.2f}%')
+        
+    del all_val_labels, all_val_preds, best_model_state
     torch.cuda.empty_cache()
 
     return best_val_acc
@@ -598,7 +609,6 @@ if __name__ == "__main__":
         np.zeros(X_interictal.shape[0])
     ], axis=0)
 
-    print(f"\n✅ 数据集构建完成")
     print(f"特征 X 形状: {X.shape}")   
     print(f"标签 y 形状: {y.shape}")  
     print(f"类别分布: {np.bincount(y.astype(int))}")  
@@ -609,7 +619,7 @@ if __name__ == "__main__":
     skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
     fold_accuracies = []
 
-    print(f"\n🚀 开始五折交叉验证...")
+    print(f"\n开始五折交叉验证...")
     
     for fold_idx, (train_idx, val_idx) in enumerate(skf.split(X, y)):
         print(f"\n--- Fold {fold_idx + 1}/5 ---")
