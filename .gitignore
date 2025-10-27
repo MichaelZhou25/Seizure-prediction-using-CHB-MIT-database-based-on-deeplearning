@@ -1,4 +1,4 @@
 data/preictal/
 data/interictal/
-
-
+data_no_overlap/preictal
+data_no_overlap/interictal
