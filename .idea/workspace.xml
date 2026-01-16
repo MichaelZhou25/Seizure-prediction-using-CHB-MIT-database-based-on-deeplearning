@@ -5,7 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c5f754cb-145c-434f-9ad4-c29005e72173" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/EpilepsyPrediction.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/mymodel.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/ablation_exp/data_utils_NO_FUSESTFT.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/ablation_exp/data_utils_no_freq.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/ablation_exp/model_gru.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/ablation_exp/model_no_CAGRU.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/ablation_exp/model_no_FUSESTFT.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/avg_result.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/config.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/data_utils.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/model/data_utils2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/main_all.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/main_lopocv.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/main_lopocv_modified.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/model.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/train_utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/preprocessing/useful_data_extraction.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/preprocessing/useful_data_info_generating.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,7 +209,7 @@
       <workItem from="1768295825668" duration="5600000" />
       <workItem from="1768447598451" duration="2921000" />
       <workItem from="1768458970114" duration="7268000" />
-      <workItem from="1768473261662" duration="7971000" />
+      <workItem from="1768473261662" duration="8737000" />
     </task>
     <servers />
   </component>
