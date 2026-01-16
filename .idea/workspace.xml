@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c5f754cb-145c-434f-9ad4-c29005e72173" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/model/data_utils2.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/model/main_all.py" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="34zsJadXsDRV1OFDaNQg7QIJcHm" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.VisualizationSTFT.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ablation_test_result.executor&quot;: &quot;Run&quot;,
+    &quot;Python.avg_result.executor&quot;: &quot;Run&quot;,
+    &quot;Python.config.executor&quot;: &quot;Run&quot;,
+    &quot;Python.data_utils.executor&quot;: &quot;Run&quot;,
+    &quot;Python.data_utils_no_freq.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_all.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_all_eegformer.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_lopocv.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_lopocv_modified.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_lopocv_modified_for_all.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_lopocv_modified_for_each.executor&quot;: &quot;Run&quot;,
+    &quot;Python.model.executor&quot;: &quot;Run&quot;,
+    &quot;Python.model_gru.executor&quot;: &quot;Run&quot;,
+    &quot;Python.model_no_CAGRU.executor&quot;: &quot;Run&quot;,
+    &quot;Python.model_no_phase.executor&quot;: &quot;Run&quot;,
+    &quot;Python.newmodel.executor&quot;: &quot;Run&quot;,
+    &quot;Python.train_utils.executor&quot;: &quot;Run&quot;,
+    &quot;Python.train_utils_eegformer.executor&quot;: &quot;Run&quot;,
+    &quot;Python.udig_mod.executor&quot;: &quot;Run&quot;,
+    &quot;Python.useful_data_extraction.executor&quot;: &quot;Run&quot;,
+    &quot;Python.useful_data_info_generating.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/EpilepsyPrediction/data_CHBMIT_1_1&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\EpilepsyPrediction\data_CHBMIT_1_1" />
+      <recent name="C:\EpilepsyPrediction\model" />
+      <recent name="D:\SeizurePrediction\EpilepsyPrediction\model" />
+      <recent name="D:\陈教授组\EpilepsyPrediction\model" />
+      <recent name="D:\陈教授组\EpilepsyPrediction\model\result" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\EpilepsyPrediction\result\lopo_chb" />
+      <recent name="C:\EpilepsyPrediction\model" />
+      <recent name="C:\EpilepsyPrediction\data_CHBMIT_1_1" />
+      <recent name="D:\陈教授组\EpilepsyPrediction\model" />
+      <recent name="D:\陈教授组\EpilepsyPrediction\" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-PY-242.22855.92" />
+        <option value="bundled-python-sdk-b068d85d1acf-399fe30bd8c1-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-242.22855.92" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="c5f754cb-145c-434f-9ad4-c29005e72173" name="更改" comment="" />
+      <created>1754753283850</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1754753283850</updated>
+      <workItem from="1762227666221" duration="1640000" />
+      <workItem from="1762230255095" duration="10173000" />
+      <workItem from="1762302104384" duration="33716000" />
+      <workItem from="1762423327858" duration="2678000" />
+      <workItem from="1762433999937" duration="89000" />
+      <workItem from="1762438763770" duration="1875000" />
+      <workItem from="1762493093753" duration="4006000" />
+      <workItem from="1762501312200" duration="489000" />
+      <workItem from="1762615908127" duration="4067000" />
+      <workItem from="1762655219983" duration="4206000" />
+      <workItem from="1762692272393" duration="417000" />
+      <workItem from="1762790539547" duration="3516000" />
+      <workItem from="1762794117865" duration="4011000" />
+      <workItem from="1762824846151" duration="181000" />
+      <workItem from="1762836487696" duration="956000" />
+      <workItem from="1762844051557" duration="1168000" />
+      <workItem from="1762846671740" duration="1631000" />
+      <workItem from="1762854183224" duration="5082000" />
+      <workItem from="1762863210177" duration="6713000" />
+      <workItem from="1762924933503" duration="15567000" />
+      <workItem from="1763024537532" duration="606000" />
+      <workItem from="1763041770113" duration="1571000" />
+      <workItem from="1763093452535" duration="10762000" />
+      <workItem from="1763123118097" duration="2739000" />
+      <workItem from="1763263966852" duration="750000" />
+      <workItem from="1763530753076" duration="2952000" />
+      <workItem from="1763822106791" duration="973000" />
+      <workItem from="1763887613296" duration="252000" />
+      <workItem from="1763903626237" duration="3386000" />
+      <workItem from="1763990028449" duration="8323000" />
+      <workItem from="1764000672432" duration="4583000" />
+      <workItem from="1764039726343" duration="12675000" />
+      <workItem from="1764062034432" duration="18351000" />
+      <workItem from="1764123105169" duration="847000" />
+      <workItem from="1764134322835" duration="4354000" />
+      <workItem from="1764151821862" duration="674000" />
+      <workItem from="1764211230122" duration="8138000" />
+      <workItem from="1764223598088" duration="2640000" />
+      <workItem from="1764251798733" duration="10290000" />
+      <workItem from="1764294788604" duration="23625000" />
+      <workItem from="1764563110387" duration="439000" />
+      <workItem from="1764568531432" duration="79086000" />
+      <workItem from="1764931841141" duration="4476000" />
+      <workItem from="1764951306692" duration="15270000" />
+      <workItem from="1765118316618" duration="1959000" />
+      <workItem from="1765162949354" duration="5999000" />
+      <workItem from="1765178405304" duration="613000" />
+      <workItem from="1765180626052" duration="218000" />
+      <workItem from="1765181007836" duration="6536000" />
+      <workItem from="1765203245381" duration="16555000" />
+      <workItem from="1765964028753" duration="68245000" />
+      <workItem from="1766487211541" duration="61594000" />
+      <workItem from="1766896145257" duration="1225000" />
+      <workItem from="1766897970277" duration="84902000" />
+      <workItem from="1768295825668" duration="5600000" />
+      <workItem from="1768447598451" duration="2921000" />
+      <workItem from="1768458970114" duration="7268000" />
+      <workItem from="1768473261662" duration="7971000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/EpilepsyPrediction$main_all.coverage" NAME="main_all 覆盖结果" MODIFIED="1766990626180" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/model" />
+    <SUITE FILE_PATH="coverage/EpilepsyPrediction$model_no_CAGRU.coverage" NAME="model_no_CAGRU 覆盖结果" MODIFIED="1766023713789" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/model" />
+    <SUITE FILE_PATH="coverage/EpilepsyPrediction$avg_result.coverage" NAME="avg_result 覆盖结果" MODIFIED="1768292894349" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/result" />
+    <SUITE FILE_PATH="coverage/EpilepsyPrediction$main.coverage" NAME="main 覆盖结果" MODIFIED="1768447789725" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/model" />
+    <SUITE FILE_PATH="coverage/EpilepsyPrediction$newmodel.coverage" NAME="newmodel 覆盖结果" MODIFIED="1764305709784" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/model" />
+    <SUITE FILE_PATH="coverage/EpilepsyPrediction$model_no_phase.coverage" NAME="model_no_phase 覆盖结果" MODIFIED="1766220895481" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/model" />
+    <SUITE FILE_PATH="coverage/EpilepsyPrediction$train_utils_eegformer.coverage" NAME="train_utils_eegformer 覆盖结果" MODIFIED="1766990169468" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/model" />
+    <SUITE FILE_PATH="coverage/EpilepsyPrediction$main_lopocv_modified_for_each.coverage" NAME="main_lopocv_modified_for_each 覆盖结果" MODIFIED="1766722584900" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/model" />
+    <SUITE FILE_PATH="coverage/EpilepsyPrediction$model_gru.coverage" NAME="model_gru 覆盖结果" MODIFIED="1766136898216" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/model" />
+    <SUITE FILE_PATH="coverage/EpilepsyPrediction$main_lopocv.coverage" NAME="main_lopocv 覆盖结果" MODIFIED="1768493286089" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/model" />
+    <SUITE FILE_PATH="coverage/EpilepsyPrediction$useful_data_extraction.coverage" NAME="useful_data_extraction 覆盖结果" MODIFIED="1764079649573" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/preprocessing" />
+    <SUITE FILE_PATH="coverage/EpilepsyPrediction$config.coverage" NAME="config 覆盖结果" MODIFIED="1766819391929" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/model" />
+    <SUITE FILE_PATH="coverage/EpilepsyPrediction$main_all_eegformer.coverage" NAME="main_all_eegformer 覆盖结果" MODIFIED="1767782607984" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/model" />
+    <SUITE FILE_PATH="coverage/EpilepsyPrediction$train_utils.coverage" NAME="train_utils 覆盖结果" MODIFIED="1764769416815" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/model" />
+    <SUITE FILE_PATH="coverage/EpilepsyPrediction$main_lopocv_modified_for_all.coverage" NAME="main_lopocv_modified_for_all 覆盖结果" MODIFIED="1768463908273" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/model" />
+    <SUITE FILE_PATH="coverage/EpilepsyPrediction$useful_data_info_generating.coverage" NAME="useful_data_info_generating 覆盖结果" MODIFIED="1764077028538" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/preprocessing" />
+    <SUITE FILE_PATH="coverage/EpilepsyPrediction$data_utils_no_freq.coverage" NAME="data_utils_no_freq 覆盖结果" MODIFIED="1766989223032" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/model" />
+    <SUITE FILE_PATH="coverage/EpilepsyPrediction$main_lopocv_modified.coverage" NAME="main_lopocv_modified 覆盖结果" MODIFIED="1768493425057" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/model" />
+    <SUITE FILE_PATH="coverage/EpilepsyPrediction$model.coverage" NAME="model 覆盖结果" MODIFIED="1764670347881" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/model" />
+    <SUITE FILE_PATH="coverage/EpilepsyPrediction$data_utils.coverage" NAME="data_utils 覆盖结果" MODIFIED="1764089629469" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/model" />
+    <SUITE FILE_PATH="coverage/EpilepsyPrediction$VisualizationSTFT.coverage" NAME="VisualizationSTFT 覆盖结果" MODIFIED="1762926817065" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/preprocessing" />
+    <SUITE FILE_PATH="coverage/EpilepsyPrediction$ablation_test_result.coverage" NAME="ablation_test_result 覆盖结果" MODIFIED="1766410396793" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mix5fold" />
+    <SUITE FILE_PATH="coverage/EpilepsyPrediction$udig_mod.coverage" NAME="udig_mod 覆盖结果" MODIFIED="1767929433041" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/preprocessing" />
+  </component>
+</project>
